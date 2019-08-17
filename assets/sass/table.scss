@@ -1,0 +1,46 @@
+table.table-rowing {
+  thead th {
+    color: #9ca8af;
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 13px;
+  }
+
+  label {
+    margin-bottom: 0;
+  }
+
+  thead th,
+  tbody td {
+    vertical-align: middle;
+    border: none;
+    border-bottom: 1px #f0f3f5 solid;
+  }
+
+  tr {
+    td:last-child {
+      text-align: right;
+    }
+    th {
+      &:last-child {
+        text-align: right;
+      }
+      &:first-child {
+        width: 1%;
+        padding-right: 5px;
+      }
+    }
+    td:first-child {
+      width: 1%;
+      padding-right: 5px;
+    }
+  }
+
+  .checkbox .cr, .radio .cr {
+    margin-right: 0;
+  }
+
+  tr td:last-child span.more {
+    color: #ed7b3d;
+  }
+}

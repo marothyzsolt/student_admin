@@ -1,0 +1,35 @@
+section.main .base .side-right hr{
+  position: absolute;
+  width: 100%;
+  left: 20px;
+}
+
+section.main .base .side-right {
+  padding: 30px 5px 20px 5px;
+}
+section.main .base .side-right i.fa {
+  margin-right: 7px;
+  font-weight: bold;
+}
+section.main .base .side-right .title {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+section.main .base .side-right .title .student-num {
+  margin-right: 20px;
+}
+
+@media(max-width: 769px) {
+  section.main .base .side-right .title .btn-custom {
+    float: right;
+  }
+}
+
+section.main .base .side-right {
+  .main-content {
+    margin-top: 30px;
+  }
+}
+

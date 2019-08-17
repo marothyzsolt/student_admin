@@ -1,0 +1,35 @@
+@media(max-width: 576px) {
+  section.header {
+    padding-top: 10px;
+    text-align: center;
+  }
+  section.header .user {
+    margin-top: 30px;
+  }
+}
+
+@media(min-width: 576px) {
+  section.header {
+    padding-top: 67px;
+
+    .user {
+      text-align: right;
+
+      img {
+        margin-right: 15px;
+      }
+
+      .name {
+        font-weight: bold;
+      }
+    }
+
+    .logo img {
+      padding-left: 15px;
+    }
+  }
+}
+
+section.header .user .name .dropdown-toggle::after {
+  color: #9ca8af;
+}
