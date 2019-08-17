@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
  */
 class Student
 {
@@ -37,7 +39,7 @@ class Student
     private $sex;
 
     /**
-     * @ORM\OneToMany(targetEntity="Group", mappedBy="leader")
+     * @ORM\OneToMany(targetEntity="StudyGroup", mappedBy="leader")
      */
     private $leadGroups;
 
@@ -54,7 +56,149 @@ class Student
     private $profileImage;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", mappedBy="students")
+     * @ORM\ManyToMany(targetEntity="StudyGroup", mappedBy="students")
      */
     private $groups;
+
+    public function __construct()
+    {
+        $this->leadGroups = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birth_date;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birth_date): self
+    {
+        $this->birth_date = $birth_date;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSex(): ?bool
+    {
+        return $this->sex;
+    }
+
+    public function setSex(bool $sex): self
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudyGroup[]
+     */
+    public function getLeadGroups(): Collection
+    {
+        return $this->leadGroups;
+    }
+
+    public function addLeadGroup(StudyGroup $leadGroup): self
+    {
+        if (!$this->leadGroups->contains($leadGroup)) {
+            $this->leadGroups[] = $leadGroup;
+            $leadGroup->setLeader($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadGroup(StudyGroup $leadGroup): self
+    {
+        if ($this->leadGroups->contains($leadGroup)) {
+            $this->leadGroups->removeElement($leadGroup);
+            // set the owning side to null (unless already changed)
+            if ($leadGroup->getLeader() === $this) {
+                $leadGroup->setLeader(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTown(): ?Town
+    {
+        return $this->town;
+    }
+
+    public function setTown(?Town $town): self
+    {
+        $this->town = $town;
+
+        return $this;
+    }
+
+    public function getProfileImage(): ?Image
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(?Image $profileImage): self
+    {
+        $this->profileImage = $profileImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudyGroup[]
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(StudyGroup $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+            $group->addStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(StudyGroup $group): self
+    {
+        if ($this->groups->contains($group)) {
+            $this->groups->removeElement($group);
+            $group->removeStudent($this);
+        }
+
+        return $this;
+    }
 }

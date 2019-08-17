@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TownRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\StudyGroupRepository")
  */
-class Town
+class StudyGroup
 {
     /**
      * @ORM\Id
@@ -24,12 +24,24 @@ class Town
     private $name;
 
     /**
-     * @ORM\Column(type="integer", length=4, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Student", inversedBy="leadGroups")
+     * @ORM\JoinColumn(name="leader_student_id", referencedColumnName="id")
      */
-    private $zip;
+    private $leader;
 
     /**
-     * @ORM\OneToMany(targetEntity="Student", mappedBy="town")
+     * @ORM\ManyToOne(targetEntity="Subject", inversedBy="groups")
+     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id", nullable=false)
+     */
+    private $subject;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Student", inversedBy="groups")
+     * @ORM\JoinTable(
+     *     name="group_student",
+     *     joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id", nullable=false)}
+     * )
      */
     private $students;
 
@@ -55,14 +67,26 @@ class Town
         return $this;
     }
 
-    public function getZip(): ?int
+    public function getLeader(): ?Student
     {
-        return $this->zip;
+        return $this->leader;
     }
 
-    public function setZip(int $zip): self
+    public function setLeader(?Student $leader): self
     {
-        $this->zip = $zip;
+        $this->leader = $leader;
+
+        return $this;
+    }
+
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?Subject $subject): self
+    {
+        $this->subject = $subject;
 
         return $this;
     }
@@ -79,7 +103,6 @@ class Town
     {
         if (!$this->students->contains($student)) {
             $this->students[] = $student;
-            $student->setTown($this);
         }
 
         return $this;
@@ -89,10 +112,6 @@ class Town
     {
         if ($this->students->contains($student)) {
             $this->students->removeElement($student);
-            // set the owning side to null (unless already changed)
-            if ($student->getTown() === $this) {
-                $student->setTown(null);
-            }
         }
 
         return $this;
