@@ -5,154 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Student Management</title>
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
 
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
     </head>
     <body>
 
-        <section class="header container-fluid">
-            <div class="row">
-                <div class="offset-sm-1 col-sm-6 col-12 logo">
-                    <img src="{{ asset('img/saf.png') }}" alt="">
-                </div>
-                <div class="col-sm-4 user">
-                    <span class="name">
-                        <span class="dropdown cursor-pointer">
-                          <span class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <img src="{{ asset('img/user.png') }}" alt="" width="40px" class="rounded-pill">
-                              Adam
-                          </span>
-                          <div class="dropdown-menu dropdown-menu-right">
-                              <a class="dropdown-item" href="/logout">Log out</a>
-                          </div>
-                        </span>
 
-                    </span>
-                </div>
-            </div>
-        </section>
+        <div id="root"></div>
 
-        <section class="page-switcher">
-            <div class="container-fluid row">
-                <div class="col-md-11 offset-1">
-                <div class="row box-group">
-                    <div class="col-md-4 box active">
-                        <h5>Students</h5>
-                        <small>125 student registered</small>
-                    </div>
-                    <div class="col-md-5 box">
-                        <h5>Study Groups</h5>
-                        <small>6 study groups with 42 students</small>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="main">
-            <div class="container-fluid row">
-                <div class="col-md-10 offset-1 base row">
-                    <div class="col-md-3 side-left">
-                        <div class="search">
-                            <div class="title">Search for name</div>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                </div>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
 
-                        <hr>
-
-                        <div class="filter">
-                            <div class="title">Filters for study groups</div>
-
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="">
-                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                    Typo
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="">
-                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                    Typo
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-9 side-right">
-                        <div class="title">
-                            <i class="fa fa-user-o"></i>
-                            <span class="student-num">125 Students</span>
-
-                            <button class="btn btn-custom icon-edit">New</button>
-                        </div>
-
-                        <hr>
-
-                        <div class="main-content">
-                            <div class="table-responsive">
-                                <table class="table table-rowing">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Sex</th>
-                                        <th>Place and Date of Birth</th>
-                                        <th>Groups</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">
-                                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <img src="{{ asset('img/user.png') }}" alt="" width="30px" class="rounded-pill">
-                                        </td>
-                                        <td>John Doe Smith</td>
-                                        <td>Male</td>
-                                        <td>Budapest, 1999.05.21</td>
-                                        <td>Biologists, Typography and <span class="more">2 more</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <main role="main" class="container">
-            <div class="starter-template">
-                {% block content %}{% endblock %}
-            </div>
-
-        </main>
-
-        <script src="{{ asset('build/app.js') }}"></script>
-
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>

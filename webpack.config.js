@@ -71,4 +71,20 @@ Encore
     //.addEntry('admin', './assets/js/admin.js')
 ;
 
-module.exports = Encore.getWebpackConfig();
+var config = Encore.getWebpackConfig();
+config.module.rules.push(
+    {
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
+        loader: 'babel-loader',
+        options: {
+            presets: ['@babel/preset-env',
+                '@babel/react',{
+                    'plugins': ['@babel/plugin-proposal-class-properties']}]
+        }
+    }
+);
+
+//console.log(config);
+
+module.exports = config;
