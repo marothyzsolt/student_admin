@@ -4,6 +4,10 @@ import Header from "./Components/Header";
 import PageSwitcher from "./Components/PageSwitcher";
 import MainPage from "./Components/MainPage";
 
+import {BrowserRouter, Link, Route, Router, Switch} from 'react-router-dom'
+import StudentsPage from "./Components/StudentsPage";
+import StudyGroupsPage from "./Components/StudyGroupsPage";
+
 class App extends React.Component {
 
     constructor(props) {
@@ -18,11 +22,15 @@ class App extends React.Component {
 
     render () {
         return (
-            <div>
-                <Header />
-                <PageSwitcher students_all={this.state.stats.students_all} />
-                <MainPage students_all={this.state.stats.students_all} />
-            </div>
+            <BrowserRouter>
+                <div>
+                    <Header />
+                    <PageSwitcher students_all={this.state.stats.students_all} />
+                    <Route exact path="/" component={MainPage}/>
+                    <Route path="/students" component={StudentsPage}/>
+                    <Route path="/groups" component={StudyGroupsPage}/>
+                </div>
+            </BrowserRouter>
         );
     }
 }

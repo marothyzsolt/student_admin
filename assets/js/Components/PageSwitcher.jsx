@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
+
+import NavLink from './NavLink'
 
 class PageSwitcher extends Component {
 
@@ -17,19 +20,18 @@ class PageSwitcher extends Component {
 
     render () {
         return (
-
             <section className="page-switcher">
                 <div className="container-fluid row">
                     <div className="col-md-11 offset-1">
                         <div className="row box-group">
-                            <div className="col-md-4 box active">
+                            <NavLink to="/students">
                                 <h5>Students</h5>
                                 <small>{this.state.stats.students_all} student registered</small>
-                            </div>
-                            <div className="col-md-4 box">
+                            </NavLink>
+                            <NavLink to="groups">
                                 <h5>Study Groups</h5>
                                 <small>{this.state.stats.groups} study groups with {this.state.stats.students} students</small>
-                            </div>
+                            </NavLink>
                         </div>
                     </div>
                 </div>

@@ -47,4 +47,9 @@ class StudentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('student');
+    }
 }

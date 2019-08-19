@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
  */
-class Student
+class Student extends BaseEntity
 {
     /**
      * @ORM\Id
@@ -201,4 +202,23 @@ class Student
 
         return $this;
     }
+
+
+
+    /*public function toArray() : array
+    {
+
+        die();
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'birth_date' => $this->birth_date,
+            'email' => $this->email,
+            'sex' => $this->sex,
+            'leadGroups' => $this->getLeadGroups()->toArray(),
+            'groups' => $this->getGroups()->map(function($obj) {return $obj->toArray();})->toArray(),
+            'town' => $this->getTown() ? $this->getTown()->toArray() : new Town(),
+            'profileImage' => $this->getProfileImage() ? $this->getProfileImage()->toArray() : new Image()
+        ];
+    }*/
 }

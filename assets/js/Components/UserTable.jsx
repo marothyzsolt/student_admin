@@ -13,9 +13,9 @@ class UserTable extends Component {
                     id: 1,
                     name: 'John Doe Smith',
                     sex: 'Male',
-                    groups: 'Biologists, Typography',
-                    birth_place: 'Budapest',
-                    birth_date: '1999.05.21',
+                    groups: null,
+                    town: {name: 'Budapest'},
+                    birth_date: {date: '2000-09-15 00:00:00.000000'},
                     img: 'http://lorempixel.com/100/100/',
                 }
             ],
@@ -30,6 +30,18 @@ class UserTable extends Component {
         this.setState({allChecked: !this.state.allChecked});
     };
 
+    componentDidMount() {
+        var page = 1;
+
+        fetch('/students/list?page='+page)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    students: data
+                });
+            });
+    }
 
     render() {
         return (

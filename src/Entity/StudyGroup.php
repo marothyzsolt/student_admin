@@ -116,4 +116,27 @@ class StudyGroup
 
         return $this;
     }
+
+    public function toArray($recursive = false)
+    {
+        $entityAsArray = get_object_vars($this);
+
+
+        if ($recursive) {
+            foreach ($entityAsArray as &$var) {
+                if ((is_object($var)) && (method_exists($var, 'toArray'))) {
+                    $var = $var->toArray($recursive);
+                }
+                if(is_array($var)) {
+                    foreach ($var as $index => &$item) {
+                        if ((is_object($item)) && (method_exists($item, 'toArray'))) {
+                            $item = $item->toArray(false);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $entityAsArray;
+    }
 }
