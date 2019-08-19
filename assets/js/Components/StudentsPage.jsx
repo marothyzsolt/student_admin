@@ -5,6 +5,11 @@ import CheckBox from './CheckBox'
 import UserTable from './UserTable'
 
 class MainPage extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render () {
         return (
 
@@ -26,7 +31,7 @@ class MainPage extends Component {
                         <div className="col-md-9 side-right">
                             <div className="title">
                                 <i className="fa fa-user-o" />
-                                <span className="student-num">{this.props.students_all} Students</span>
+                                <span className="student-num">{this.props.stats.students_total} Students</span>
                                 <button className="btn btn-custom icon-edit">New</button>
                             </div>
                             <hr />

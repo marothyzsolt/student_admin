@@ -42,6 +42,13 @@ class StudentController extends AbstractController
 
         //dd($students);
 
+        $objs = [
+            'stats' => [
+                'total' => $pagerfanta->count()
+            ],
+            'data' => $objs
+        ];
+
         return new JsonResponse($objs);
 
         //dd($students[0]->toArray());

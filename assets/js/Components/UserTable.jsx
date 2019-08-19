@@ -8,17 +8,7 @@ class UserTable extends Component {
         super(props);
 
         this.state = {
-            students: [
-                {
-                    id: 1,
-                    name: 'John Doe Smith',
-                    sex: 'Male',
-                    groups: null,
-                    town: {name: 'Budapest'},
-                    birth_date: {date: '2000-09-15 00:00:00.000000'},
-                    img: 'http://lorempixel.com/100/100/',
-                }
-            ],
+            students: [],
             checkedList: [],
             allChecked: false
         };
@@ -36,9 +26,8 @@ class UserTable extends Component {
         fetch('/students/list?page='+page)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 this.setState({
-                    students: data
+                    students: data.data
                 });
             });
     }
