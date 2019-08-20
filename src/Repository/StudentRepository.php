@@ -52,4 +52,27 @@ class StudentRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('student');
     }
+
+    public function countStudents()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT count(student.id) FROM App:Student student'
+        )->getSingleScalarResult();
+    }
+
+    public function countStudentsHasGroup()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(DISTINCT s.id)')
+            ->leftJoin('App:GroupStudent', 'gs', 'WITH', 'gs.student = s.id')
+            ->where('gs.group != :group_id')
+            ->setParameter('group_id', 'NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function filterByGroups()
+    {
+
+    }
 }

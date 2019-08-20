@@ -13,7 +13,7 @@ class UserTableRow extends Component {
 
 
     render() {
-        var birth_date = dateFormat(new Date(this.props.student.birth_date.date), "yyyy.mm.dd");
+        var birth_date = dateFormat(new Date(this.props.student.birth_date), "yyyy.mm.dd");
 
         return (
             <tr>

@@ -8,7 +8,7 @@ class SearchBox extends Component {
                 <div className="input-group-prepend">
                     <span className="input-group-text"><i className="fa fa-search" /></span>
                 </div>
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" name={this.props.name} />
             </div>
         );
     }

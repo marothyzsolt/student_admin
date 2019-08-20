@@ -4,8 +4,9 @@
 namespace App\Controller;
 
 use App\Entity\Student;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
+use App\Traits\Pagination;
+use App\Utils\Filter\Filters\StudentFilter;
+use App\Utils\Filter\QueryFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StudentController extends AbstractController
 {
+    use Pagination;
 
     /**
      * @Route("/students/list", name="students.list")
@@ -23,36 +25,16 @@ class StudentController extends AbstractController
      */
     public function index(Request $request)
     {
-
-        $page = $request->query->get('page', 1);
-        $qb = $this->getDoctrine()
-            ->getRepository(Student::class)
-            ->findAllQueryBuilder();
-        $adapter = new DoctrineORMAdapter($qb);
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage(10);
-        $pagerfanta->setCurrentPage($page);
-        $objs = [];
-        foreach ($pagerfanta->getCurrentPageResults() as $result) {
-            $objs[] = $result->toArray();
-        }
-
-        //dd($objs[0]);
-        //$students = $studentRepository->findAll();
-
-        //dd($students);
+        $objs = $this->paginate(Student::class, $request, new StudentFilter());
 
         $objs = [
             'stats' => [
-                'total' => $pagerfanta->count()
+                'total' => $this->pagerfanta->count()
             ],
             'data' => $objs
         ];
 
         return new JsonResponse($objs);
-
-        //dd($students[0]->toArray());
-       // return new JsonResponse($students->toArray());
     }
 
 

@@ -3,11 +3,67 @@ import React, {Component} from 'react';
 import SearchBox from './SearchBox'
 import CheckBox from './CheckBox'
 import UserTable from './UserTable'
+import UserTableRow from "./UserTableRow";
 
 class MainPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            groups: []
+        };
+
+        this.selectGroup = this.selectGroup.bind(this);
+        this.sendSearchSubmit = this.sendSearchSubmit.bind(this);
+        this.sendSearch = this.sendSearch.bind(this);
+    }
+
+    componentWillMount() {
+        fetch('/groups/list/simple')
+            .then(response => response.json())
+            .then(data => {
+                var curr = (data.data).map((group) => {return {...group, selected: false}});
+                this.setState({
+                    groups: curr,
+                });
+            });
+    }
+
+    selectGroup(group) {
+        const newGroups = this.state.groups.map((cGroup) => {
+            if(cGroup.id === group.id)
+                return {...cGroup, selected: !cGroup.selected};
+            return cGroup;
+        });
+
+        this.setState({
+            groups: newGroups
+        }, () => {
+            //this.groupEvent();
+            this.sendSearch(document.getElementById('searchForm'));
+        });
+    }
+
+    selectedGroups() {
+        var selectedGroups = [];
+        this.state.groups.forEach((group) => {
+            if(group.selected) {
+                selectedGroups.push(group);
+            }
+        });
+        return selectedGroups;
+    }
+
+    sendSearchSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        this.groupEvent(formData);
+    }
+
+    sendSearch() {
+        const formData = new FormData(document.getElementById('searchForm'));
+        this.groupEvent(formData);
     }
 
     render () {
@@ -17,16 +73,17 @@ class MainPage extends Component {
                 <div className="container-fluid row">
                     <div className="col-md-10 offset-1 base row">
                         <div className="col-md-3 side-left">
-                            <div className="search">
-                                <div className="title">Search for name</div>
-                                <SearchBox/>
-                            </div>
-                            <hr />
-                            <div className="filter">
-                                <div className="title">Filters for study groups</div>
-                                <CheckBox name="Test 1"/>
-                                <CheckBox name="Test 2"/>
-                            </div>
+                            <form onSubmit={this.sendSearchSubmit} id="searchForm">
+                                <div className="search">
+                                    <div className="title">Search for name</div>
+                                    <SearchBox name="name" />
+                                </div>
+                                <hr />
+                                <div className="filter">
+                                    <div className="title">Filters for study groups</div>
+                                    {this.state.groups.map((group) => <CheckBox inputValue={group.id} inputName="group[]" name={group.name} key={group.id} onClickHandler={() => this.selectGroup(group)} />)}
+                                </div>
+                            </form>
                         </div>
                         <div className="col-md-9 side-right">
                             <div className="title">
@@ -37,7 +94,7 @@ class MainPage extends Component {
                             <hr />
                             <div className="main-content">
                                 <div className="table-responsive">
-                                    <UserTable />
+                                    <UserTable selectedGroups={this.selectedGroups()} changedFilter={e => this.groupEvent = e}/>
                                 </div>
                             </div>
                         </div>

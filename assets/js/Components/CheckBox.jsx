@@ -30,7 +30,7 @@ class CheckBox extends Component {
         return (
             <div className="checkbox" onChange={this.props.onClickHandler}>
                 <label>
-                    <input type="checkbox" checked={ this.state.checked } onChange={ this.checkboxHandler }  />
+                    <input value={this.props.inputValue ? this.props.inputValue : this.props.name ? this.props.name : 1} name={this.props.inputName} type="checkbox" checked={ this.state.checked } onChange={ this.checkboxHandler }  />
                     <span className="cr"><i className="cr-icon fa fa-check" /></span>
                     {this.props.name}
                 </label>

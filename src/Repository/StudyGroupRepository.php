@@ -47,4 +47,17 @@ class StudyGroupRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findAllQueryBuilder()
+    {
+        return $this->createQueryBuilder('student');
+    }
+
+
+    public function countGroups()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT count(study_group.id) FROM App:StudyGroup study_group'
+        )->getSingleScalarResult();
+    }
 }
