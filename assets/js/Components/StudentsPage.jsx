@@ -4,6 +4,7 @@ import SearchBox from './SearchBox'
 import CheckBox from './CheckBox'
 import UserTable from './UserTable'
 import UserTableRow from "./UserTableRow";
+import NavLink from "./NavLink";
 
 class MainPage extends Component {
 
@@ -89,7 +90,9 @@ class MainPage extends Component {
                             <div className="title">
                                 <i className="fa fa-user-o" />
                                 <span className="student-num">{this.props.stats.students_total} Students</span>
-                                <button className="btn btn-custom icon-edit">New</button>
+                                <NavLink to="/students/create">
+                                    <button className="btn btn-custom icon-edit">New</button>
+                                </NavLink>
                             </div>
                             <hr />
                             <div className="main-content">

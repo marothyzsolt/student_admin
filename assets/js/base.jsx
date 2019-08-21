@@ -7,6 +7,9 @@ import MainPage from "./Components/MainPage";
 import {BrowserRouter, Link, Route, Router, Switch} from 'react-router-dom'
 import StudentsPage from "./Components/StudentsPage";
 import StudyGroupsPage from "./Components/StudyGroupsPage";
+import StudentNewPage from "./Components/StudentNewPage";
+
+import eventsService from './services/events';
 
 const renderMergedProps = (component, ...rest) => {
     const finalProps = Object.assign({}, ...rest);
@@ -36,7 +39,7 @@ class App extends React.Component {
         };
     }
 
-    componentDidMount() {
+    appUpdatedListener() {
         fetch('/stats')
             .then(response => response.json())
             .then(data => {
@@ -50,6 +53,20 @@ class App extends React.Component {
             });
     }
 
+    componentWillMount() {
+        eventsService
+            .listenEvent('stat', 'app', this.appUpdatedListener.bind(this));
+    }
+
+    componentDidMount() {
+        this.appUpdatedListener();
+    }
+
+    componentWillUnmount() {
+        eventsService
+            .unlistenEvent('stat', 'app');
+    }
+
     render () {
         return (
             <BrowserRouter>
@@ -58,8 +75,9 @@ class App extends React.Component {
                     <PageSwitcher stats={this.state.stats} />
 
                     <PropsRoute exact path="/" component={MainPage}/>
-                    <PropsRoute path="/students" component={StudentsPage} stats={this.state.stats}/>
-                    <PropsRoute path="/groups" component={StudyGroupsPage}/>
+                    <PropsRoute exact path="/students" component={StudentsPage} stats={this.state.stats}/>
+                    <PropsRoute exact path="/groups" component={StudyGroupsPage}/>
+                    <PropsRoute exact path="/students/create" component={StudentNewPage}/>
                 </div>
             </BrowserRouter>
         );

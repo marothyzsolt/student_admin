@@ -16,14 +16,26 @@ class StudentFilter extends FilterBase
             ->leftJoin('App:GroupStudent', 'gs', 'WITH', 'gs.student = t.id')
             ->leftJoin('App:StudyGroup', 'sg', 'WITH', 'sg.id = gs.group');
 
-        foreach ($groups as $index => $group) {
-            $queryBuilder = $queryBuilder->orWhere('sg.id = :group_id_'.$index)->setParameter('group_id_'.$index, $group);
+        if(count($groups) > 0) {
+            $andWhere = '(';
+            foreach ($groups as $index => $group) {
+                $keyName = 'group_id_' . $index;
+                $andWhere .= ' sg.id = :'.$keyName.' ';
+                if($index+1 !== count($groups)) {
+                    $andWhere .= ' OR ';
+                }
+                $queryBuilder->setParameter($keyName, $group);
+                //$queryBuilder = $queryBuilder->orWhere('sg.id = :group_id_'.$index)->setParameter('group_id_'.$index, $group);
+            }
+            $andWhere .= ')';
+
+            $queryBuilder->andWhere($andWhere);
         }
         return $queryBuilder;
     }
 
     public function name(QueryBuilder $queryBuilder, string $name) : QueryBuilder
     {
-        return $queryBuilder->orWhere('t.name LIKE :name')->setParameter('name', "%$name%");
+        return $queryBuilder->andWhere('t.name LIKE :name')->setParameter('name', "%$name%");
     }
 }

@@ -15,9 +15,14 @@ class StatsController extends AbstractController
      */
     public function index(StudentRepository $studentRepository, StudyGroupRepository $groupRepository)
     {
+        $students = $studentRepository->countStudents();
+        $groups = $groupRepository->countGroups();
+
         $stats = [
-            'students_total' => $studentRepository->countStudents(),
-            'groups_total' => $groupRepository->countGroups(),
+            'students_total' => $students,
+            'students_page' => $students/10,
+            'groups_total' => $groups,
+            'groups_page' => $groups/10,
             'students_in_groups' => $studentRepository->countStudentsHasGroup()
         ];
         return new JsonResponse($stats);

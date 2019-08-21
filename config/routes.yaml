@@ -9,3 +9,7 @@ groups:
 students:
   path: /students
   controller: App\Controller\HomeController::index
+
+students.create:
+  path: /students/create
+  controller: App\Controller\HomeController::index

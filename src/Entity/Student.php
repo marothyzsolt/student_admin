@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
@@ -21,16 +21,28 @@ class Student extends BaseEntity
 
     /**
      * @ORM\Column(type="string", nullable=false)
+     * @Assert\NotBlank(message="The name should not be blank.")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type("\DateTime")
      */
     private $birth_date;
 
     /**
      * @ORM\Column(type="string", nullable=false, options={"unsigned":true})
+     * @Assert\NotBlank(message="The email should not be blank.")
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -205,20 +217,4 @@ class Student extends BaseEntity
 
 
 
-    /*public function toArray() : array
-    {
-
-        die();
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'birth_date' => $this->birth_date,
-            'email' => $this->email,
-            'sex' => $this->sex,
-            'leadGroups' => $this->getLeadGroups()->toArray(),
-            'groups' => $this->getGroups()->map(function($obj) {return $obj->toArray();})->toArray(),
-            'town' => $this->getTown() ? $this->getTown()->toArray() : new Town(),
-            'profileImage' => $this->getProfileImage() ? $this->getProfileImage()->toArray() : new Image()
-        ];
-    }*/
 }
