@@ -9,10 +9,10 @@ use Doctrine\ORM\QueryBuilder;
 
 class SubjectFilter extends FilterBase
 {
-    public function group(QueryBuilder $queryBuilder, array $groups) : QueryBuilder
+    /*public function subject(QueryBuilder $queryBuilder, array $subject) : QueryBuilder
     {
-        return $queryBuilder;
-    }
+        return $queryBuilder->andWhere('t.subject = :subject')->setParameter('subject', $subject);
+    }*/
 
     public function name(QueryBuilder $queryBuilder, string $name) : QueryBuilder
     {

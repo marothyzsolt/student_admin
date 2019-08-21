@@ -64,7 +64,7 @@ class StudyGroupsPage extends Component {
                             <form onSubmit={this.sendSearchSubmit} id="searchForm">
                                 <div className="search">
                                     <div className="title">Search for groups</div>
-                                    <SearchBox/>
+                                    <SearchBox name="name" />
                                 </div>
                                 <hr />
                                 <div className="filter">

@@ -11,11 +11,11 @@ class StudyGroupFilter extends FilterBase
 {
     public function subject(QueryBuilder $queryBuilder, array $subject) : QueryBuilder
     {
-        return $queryBuilder;
+        return $queryBuilder->andWhere('t.subject IN (:subjectList)')->setParameter('subjectList', $subject);
     }
 
     public function name(QueryBuilder $queryBuilder, string $name) : QueryBuilder
     {
-        return $queryBuilder;
+        return $queryBuilder->andWhere('t.name LIKE :name')->setParameter('name', "%$name%");
     }
 }
