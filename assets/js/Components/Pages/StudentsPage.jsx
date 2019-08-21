@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-import SearchBox from './SearchBox'
-import CheckBox from './CheckBox'
-import UserTable from './UserTable'
-import UserTableRow from "./UserTableRow";
-import NavLink from "./NavLink";
+import SearchBox from '../SearchBox'
+import CheckBox from '../CheckBox'
+import UserTable from '../UserTable'
+import UserTableRow from "../UserTableRow";
+import NavLink from "../NavLink";
 
 class MainPage extends Component {
 

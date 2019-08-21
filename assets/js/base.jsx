@@ -2,12 +2,12 @@ import React from 'react';
 import {render} from 'react-dom';
 import Header from "./Components/Header";
 import PageSwitcher from "./Components/PageSwitcher";
-import MainPage from "./Components/MainPage";
+import MainPage from "./Components/Pages/MainPage";
 
 import {BrowserRouter, Link, Route, Router, Switch} from 'react-router-dom'
-import StudentsPage from "./Components/StudentsPage";
-import StudyGroupsPage from "./Components/StudyGroupsPage";
-import StudentNewPage from "./Components/StudentNewPage";
+import StudentsPage from "./Components/Pages/StudentsPage";
+import StudyGroupsPage from "./Components/Pages/StudyGroupsPage";
+import StudentNewPage from "./Components/Pages/StudentNewPage";
 
 import eventsService from './services/events';
 

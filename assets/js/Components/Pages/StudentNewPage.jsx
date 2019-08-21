@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import FormInput from './Form/FormInput';
-import FormSelect from './Form/FormSelect';
-import CheckBox from "./CheckBox";
+import FormInput from '../Form/FormInput';
+import FormSelect from '../Form/FormSelect';
+import CheckBox from "../CheckBox";
 import { Redirect } from 'react-router'
 
-import eventsService from '../services/events';
+import eventsService from '../../services/events';
 
 class StudentNewPage extends Component {
 

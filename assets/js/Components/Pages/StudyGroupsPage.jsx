@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import SearchBox from './SearchBox'
-import CheckBox from './CheckBox'
-import UserTable from './UserTable'
+import SearchBox from '../SearchBox'
+import CheckBox from '../CheckBox'
+import UserTable from '../UserTable'
 
 class MainPage extends Component {
     render () {
