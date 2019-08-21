@@ -74,10 +74,10 @@ class App extends React.Component {
                     <Header />
                     <PageSwitcher stats={this.state.stats} />
 
-                    <PropsRoute exact path="/" component={MainPage}/>
-                    <PropsRoute exact path="/students" component={StudentsPage} stats={this.state.stats}/>
-                    <PropsRoute exact path="/groups" component={StudyGroupsPage}/>
-                    <PropsRoute exact path="/students/create" component={StudentNewPage}/>
+                    <PropsRoute exact path="/" component={MainPage} />
+                    <PropsRoute exact path="/students" component={StudentsPage} stats={this.state.stats} />
+                    <PropsRoute exact path="/groups" component={StudyGroupsPage} stats={this.state.stats} />
+                    <PropsRoute exact path="/students/create" component={StudentNewPage} />
                 </div>
             </BrowserRouter>
         );

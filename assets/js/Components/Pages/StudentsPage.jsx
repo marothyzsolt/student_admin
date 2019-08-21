@@ -41,19 +41,8 @@ class MainPage extends Component {
         this.setState({
             groups: newGroups
         }, () => {
-            //this.groupEvent();
             this.sendSearch(document.getElementById('searchForm'));
         });
-    }
-
-    selectedGroups() {
-        var selectedGroups = [];
-        this.state.groups.forEach((group) => {
-            if(group.selected) {
-                selectedGroups.push(group);
-            }
-        });
-        return selectedGroups;
     }
 
     sendSearchSubmit(event) {
@@ -97,7 +86,7 @@ class MainPage extends Component {
                             <hr />
                             <div className="main-content">
                                 <div className="table-responsive">
-                                    <UserTable selectedGroups={this.selectedGroups()} changedFilter={e => this.groupEvent = e}/>
+                                    <UserTable changedFilter={e => this.groupEvent = e}/>
                                 </div>
                             </div>
                         </div>
