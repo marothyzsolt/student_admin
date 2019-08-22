@@ -9,6 +9,7 @@ use App\Repository\StudentRepository;
 use App\Repository\StudyGroupRepository;
 use App\Repository\TownRepository;
 use App\Traits\Pagination;
+use App\Traits\StudentTrait;
 use App\Traits\Validator;
 use App\Utils\Filter\Filters\StudentFilter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,55 +22,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StudentController extends AbstractController
 {
-    use Pagination;
-    use Validator;
+    use Pagination, Validator;
+    use StudentTrait;
 
-    protected function getTown(Request $request, TownRepository $townRepository, EntityManagerInterface $em) : Town
-    {
-        $town = $request->get('birth_place');
-        $townEntity = $townRepository->findBy(['name' => $town]);
-        if(count($townEntity) > 0) {
-            $town = $townEntity[0];
-        } else {
-            $town = new Town();
-            $town->setName($request->get('birth_place'));
-            $town->setZip(rand(1000,9999));
 
-            $em->persist($town);
-        }
-
-        return $town;
-    }
-
-    protected function makeStudent(Student $student, Request $request, Town $town) : Student
-    {
-        $student->setName($request->get('name'));
-        $student->setEmail($request->get('email'));
-        $student->setSex($request->get('sex')==1);
-        $student->setTown($town);
-
-        return $student;
-    }
-
-    protected function addGroups(Request $request, Student $student, StudyGroupRepository $studyGroupRepository) : void
-    {
-        $groups = $request->get('group');
-
-        if(count($student->getGroups()) > 0) {
-            foreach ($student->getGroups() as $index => $group) {
-                $student->removeGroup($group);
-            }
-        }
-
-        if(is_array($groups) && count($groups) > 0) {
-            foreach ($groups as $index => $grpId) {
-                $studyGroup = $studyGroupRepository->find($grpId);
-                if($studyGroup !== NULL) {
-                    $student->addGroup($studyGroup);
-                }
-            }
-        }
-    }
 
     /**
      * @Route("/students/list", name="students.list")
@@ -188,6 +144,34 @@ class StudentController extends AbstractController
         }
 
         return new JsonResponse($data, count($errorList) > 0 ? 400 : 200);
+    }
+
+
+    /**
+     * @Route("/api/students/delete/{id}", name="api.students.delete", requirements={"id"="\d+"}, methods={"DELETE"})
+     * @return JsonResponse
+     */
+    public function deleteStudent(Request $request,
+                                   ValidatorInterface $validator,
+                                   StudentRepository $studentRepository,
+                                   TownRepository $townRepository,
+                                   StudyGroupRepository $studyGroupRepository,
+                                   EntityManagerInterface $em)
+    {
+        $id = $request->get('id');
+        $student = $studentRepository->find($id);
+        if($student === NULL)
+        {
+            return new JsonResponse(['error' => TRUE], 400);
+        }
+
+        $this->removeStudentGroups($student);
+        $this->removeStudentLeadGroups($student);
+
+        $em->remove($student);
+        $em->flush();
+
+        return new JsonResponse(['error' => FALSE], 200);
     }
 
 

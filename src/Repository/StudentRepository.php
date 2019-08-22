@@ -70,9 +70,4 @@ class StudentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-    public function filterByGroups()
-    {
-
-    }
 }

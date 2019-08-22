@@ -153,7 +153,10 @@ class StudentBase extends Component {
                         <div className="col-md-11 side-right">
                             <div className="title">
                                 <i className="fa fa-user-o" />
-                                <span className="student-num">Create new user</span>
+                                <span className="student-num">{this.state.title}</span>
+                                {this.props.match.params.userId > 0 &&
+                                <button onClick={this.deleteStudent} className="btn btn-danger">Delete ID #{this.props.match.params.userId} student</button>
+                                }
                             </div>
                             <hr />
                             <div className="main-content">
@@ -167,9 +170,9 @@ class StudentBase extends Component {
                                     <FormInput value={this.state.values.town.name} error={errors.birth_place} onChangeEvent={this.handleChange} noValidate inputName="birth_place" name="Place of Birth" />
                                     <FormInput value={this.state.values.email} error={errors.email} onChangeEvent={this.handleChange} noValidate inputName="email" name="E-mail" />
 
-                                    <FormSelect onChangeEvent={this.handleChange} noValidate inputName="sex" name="Sex" value={this.state.values.sex?0:1}>
-                                        <option value="0">Male</option>
-                                        <option value="1">Female</option>
+                                    <FormSelect onChangeEvent={this.handleChange} noValidate inputName="sex" name="Sex" value={this.state.values.sex?1:0}>
+                                        <option value="1">Male</option>
+                                        <option value="0">Female</option>
                                     </FormSelect>
 
                                     <div className="row">
