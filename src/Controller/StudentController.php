@@ -131,6 +131,10 @@ class StudentController extends AbstractController
         $this->addGroups($request, $student, $studyGroupRepository);
 
         $errorList = $this->validate($student, $validator);
+        if($student->getGroups()->count() > 4)
+        {
+            $errorList[] = "Maximum 4 study group per user.";
+        }
         $data = [
             'errors' => $errorList,
             'message' => NULL

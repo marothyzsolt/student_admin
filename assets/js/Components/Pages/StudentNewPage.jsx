@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import FormInput from '../Form/FormInput';
-import FormSelect from '../Form/FormSelect';
-import CheckBox from "../CheckBox";
-import { Redirect } from 'react-router'
 import Base from '../Forms/StudentBase'
-
-import eventsService from '../../services/events';
 
 class StudentNewPage extends Base {
 
@@ -16,7 +10,7 @@ class StudentNewPage extends Base {
         super(props, {
             renderable: true,
             title: 'Create new student',
-            saveLink: '/api/students/create/' + props.match.params.userId,
+            saveLink: '/api/students/create',
             values: {
                 name: '',
                 email: '',
