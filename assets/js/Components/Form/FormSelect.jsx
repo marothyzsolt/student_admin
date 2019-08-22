@@ -6,7 +6,7 @@ class FormSelect extends Component {
             <div className="form-group row">
                 <label className="control-label col-sm-2" htmlFor={this.props.inputName}>{this.props.name}:</label>
                 <div className="col-sm-4">
-                    <select name={this.props.inputName} onChange={this.props.onChangeEvent} className="form-control">
+                    <select name={this.props.inputName} onChange={this.props.onChangeEvent} className="form-control" defaultValue={this.props.value}>
                         {this.props.children}
                     </select>
                     <span className="input-error">{this.props.error}</span>

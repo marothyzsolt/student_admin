@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-
 import CheckBox from './CheckBox'
 import GroupList from './GroupList'
+import {Link} from 'react-router-dom'
 
 var dateFormat = require('dateformat');
 
@@ -23,7 +23,13 @@ class UserTableRow extends Component {
                 <td>
                     <img src={this.props.student.img} alt="" className="rounded-pill" width="30px" />
                 </td>
-                <td>{this.props.student.name}</td>
+                <td className="edit_link">
+                    <Link to={{
+                        pathname: '/students/edit/' + this.props.student.id,
+                    }}>
+                        {this.props.student.name}
+                    </Link>
+                </td>
                 <td>{this.props.student.sex?'Male':'Female'}</td>
                 <td>{this.props.student.town.name}, {birth_date}</td>
                 <td><GroupList groups={this.props.student.groups} /></td>

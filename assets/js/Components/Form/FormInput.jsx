@@ -6,7 +6,7 @@ class FormInput extends Component {
             <div className="form-group row">
                 <label className="control-label col-sm-2" htmlFor={this.props.inputName}>{this.props.name}:</label>
                 <div className="col-sm-4">
-                    <input onChange={this.props.onChangeEvent} type="text" className="form-control" name={this.props.inputName} placeholder={this.props.placeholder ? this.props.placeholder : this.props.name} />
+                    <input defaultValue={this.props.value} onChange={this.props.onChangeEvent} type="text" className="form-control" name={this.props.inputName} placeholder={this.props.placeholder ? this.props.placeholder : this.props.name} />
 
                     <span className="input-error">{this.props.error}</span>
                 </div>

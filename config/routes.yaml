@@ -13,3 +13,7 @@ students:
 students.create:
   path: /students/create
   controller: App\Controller\HomeController::index
+
+students.edit:
+  path: /students/edit/{id}
+  controller: App\Controller\HomeController::index

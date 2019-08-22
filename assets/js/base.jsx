@@ -10,6 +10,7 @@ import StudyGroupsPage from "./Components/Pages/StudyGroupsPage";
 import StudentNewPage from "./Components/Pages/StudentNewPage";
 
 import eventsService from './services/events';
+import StudentEditPage from "./Components/Pages/StudentEditPage";
 
 const renderMergedProps = (component, ...rest) => {
     const finalProps = Object.assign({}, ...rest);
@@ -77,7 +78,9 @@ class App extends React.Component {
                     <PropsRoute exact path="/" component={MainPage} />
                     <PropsRoute exact path="/students" component={StudentsPage} stats={this.state.stats} />
                     <PropsRoute exact path="/groups" component={StudyGroupsPage} stats={this.state.stats} />
+
                     <PropsRoute exact path="/students/create" component={StudentNewPage} />
+                    <PropsRoute exact path="/students/edit/:userId" component={StudentEditPage} />
                 </div>
             </BrowserRouter>
         );

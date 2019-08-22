@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-
 import CheckBox from './CheckBox'
-import GroupList from './GroupList'
+import {Link} from 'react-router-dom'
 
 class StudyGroupTableRow extends Component {
 
@@ -16,7 +15,7 @@ class StudyGroupTableRow extends Component {
                 <td>
                     <CheckBox checked={this.props.checked}/>
                 </td>
-                <td>{this.props.group.name}</td>
+                <td className="edit_link"><Link to="/groups/edit"> {this.props.group.name}</Link></td>
                 <td>{this.props.group.leader ? this.props.group.leader.name : '-'}</td>
                 <td>{this.props.group.subject ? this.props.group.subject.name : '-'}</td>
                 <td><b>{this.props.group.students_total}</b> student{this.props.group.students_total>1?'s':''}</td>

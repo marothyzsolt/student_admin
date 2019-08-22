@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\StudyGroup;
+use App\Repository\StudyGroupRepository;
 use App\Traits\Pagination;
 use App\Utils\Filter\Base\FilterBase;
 use App\Utils\Filter\Filters\StudyGroupFilter;
@@ -50,5 +51,17 @@ class StudyGroupController extends AbstractController
         ];
 
         return new JsonResponse($objs);
+    }
+
+    /**
+     * @Route("/groups/{id}", name="groups.get")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getGroup(Request $request, StudyGroupRepository $studyGroupRepository)
+    {
+        $id = $request->get('id');
+        dd($studyGroupRepository->find($id));
+        return new JsonResponse($studyGroupRepository->find($request->get('id')));
     }
 }
