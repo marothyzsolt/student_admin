@@ -21,7 +21,7 @@ class UserTableRow extends Component {
                     <CheckBox checked={this.props.checked}/>
                 </td>
                 <td>
-                    <img src={this.props.student.img} alt="" className="rounded-pill" width="30px" />
+                    <img src={this.props.student.profileImage.path} alt="" className="rounded-pill" width="30px" />
                 </td>
                 <td className="edit_link">
                     <Link to={{
