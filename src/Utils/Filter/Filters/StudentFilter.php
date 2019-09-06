@@ -39,6 +39,4 @@ class StudentFilter extends FilterBase
         return $queryBuilder->andWhere('t.name LIKE :name')->setParameter('name', "%$name%");
     }
     //
-    //
-    //
 }
